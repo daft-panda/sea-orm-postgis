@@ -54,7 +54,7 @@ impl DatabaseTransaction {
             }
             #[cfg(feature = "sqlx-postgres")]
             InnerConnection::Postgres(ref mut c) => {
-                <sqlx::Postgres as sqlx::Database>::TransactionManager::begin(c)
+                <sqlx::Postgres as sqlx::Database>::TransactionManager::begin(c, None)
                     .await
                     .map_err(sqlx_error_to_query_err)?;
                 // in PostgreSQL SET TRANSACTION operations must be executed inside transaction

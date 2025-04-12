@@ -804,6 +804,9 @@ try_getable_uuid!(uuid::fmt::Urn, uuid::Uuid::urn);
 #[cfg(feature = "with-ipnetwork")]
 try_getable_postgres!(ipnetwork::IpNetwork);
 
+#[cfg(feature = "with-postgis")]
+try_getable_postgres!(postgis::ewkb::Geometry);
+
 impl TryGetable for u32 {
     #[allow(unused_variables)]
     fn try_get_by<I: ColIdx>(res: &QueryResult, idx: I) -> Result<Self, TryGetError> {
@@ -995,6 +998,9 @@ mod postgres_array {
 
     #[cfg(feature = "with-ipnetwork")]
     try_getable_postgres_array!(ipnetwork::IpNetwork);
+
+    #[cfg(feature = "with-postgis")]
+    try_getable_postgres_array!(postgis::ewkb::Geometry);
 
     #[allow(unused_macros)]
     macro_rules! try_getable_postgres_array_uuid {
@@ -1520,6 +1526,9 @@ try_from_u64_err!(uuid::Uuid);
 
 #[cfg(feature = "with-ipnetwork")]
 try_from_u64_err!(ipnetwork::IpNetwork);
+
+#[cfg(feature = "with-postgis")]
+try_from_u64_err!(postgis::ewkb::Geometry);
 
 #[cfg(test)]
 mod tests {
