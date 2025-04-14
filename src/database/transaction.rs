@@ -48,7 +48,7 @@ impl DatabaseTransaction {
                 // in MySQL SET TRANSACTION operations must be executed before transaction start
                 crate::driver::sqlx_mysql::set_transaction_config(c, isolation_level, access_mode)
                     .await?;
-                <sqlx::MySql as sqlx::Database>::TransactionManager::begin(c)
+                <sqlx::MySql as sqlx::Database>::TransactionManager::begin(c, None)
                     .await
                     .map_err(sqlx_error_to_query_err)
             }
@@ -70,7 +70,7 @@ impl DatabaseTransaction {
                 // in SQLite isolation level and access mode are global settings
                 crate::driver::sqlx_sqlite::set_transaction_config(c, isolation_level, access_mode)
                     .await?;
-                <sqlx::Sqlite as sqlx::Database>::TransactionManager::begin(c)
+                <sqlx::Sqlite as sqlx::Database>::TransactionManager::begin(c, None)
                     .await
                     .map_err(sqlx_error_to_query_err)
             }
